@@ -1,31 +1,54 @@
-import random
+class Calculator:
+    def __init__(self):
+        self.result = 0
 
-class GuessGame:
-    def __init__(self, lower=1, upper=100):
-        self.lower = lower
-        self.upper = upper
-        self.number_to_guess = random.randint(self.lower, self.upper)
-        self.attempts = 0
+    def add(self, a, b):
+        self.result = a + b
+        return self.result
 
-    def start(self):
-        print(f"Welcome to Guess the Number!")
-        print(f"I'm thinking of a number between {self.lower} and {self.upper}.")
-        
-        while True:
-            try:
-                guess = int(input("Take a guess: "))
-                self.attempts += 1
-                if guess < self.number_to_guess:
-                    print("Too low! Try again.")
-                elif guess > self.number_to_guess:
-                    print("Too high! Try again.")
-                else:
-                    print(f"Congratulations! You guessed it in {self.attempts} attempts.")
-                    break
-            except ValueError:
-                print("Please enter a valid integer.")
+    def subtract(self, a, b):
+        self.result = a - b
+        return self.result
 
-# Create a game instance and start the game
+    def multiply(self, a, b):
+        self.result = a * b
+        return self.result
+
+    def divide(self, a, b):
+        if b == 0:
+            return "Error: Division by zero"
+        self.result = a / b
+        return self.result
+
+def main():
+    calc = Calculator()
+    print("Simple Calculator using OOP")
+    print("Operations: add, subtract, multiply, divide, quit")
+
+    while True:
+        operation = input("\nEnter operation: ").lower()
+        if operation == "quit":
+            print("Exiting calculator.")
+            break
+        if operation not in ['add', 'subtract', 'multiply', 'divide']:
+            print("Invalid operation. Try again.")
+            continue
+
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
+            continue
+
+        if operation == 'add':
+            print("Result:", calc.add(num1, num2))
+        elif operation == 'subtract':
+            print("Result:", calc.subtract(num1, num2))
+        elif operation == 'multiply':
+            print("Result:", calc.multiply(num1, num2))
+        elif operation == 'divide':
+            print("Result:", calc.divide(num1, num2))
+
 if __name__ == "__main__":
-    game = GuessGame()
-    game.start()
+    main()
